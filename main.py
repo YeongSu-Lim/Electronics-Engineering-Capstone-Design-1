@@ -3,11 +3,10 @@ import cv2
 import time
 from ultralytics import YOLO
 
-# 💡 [핵심] 분할한 파일에서 TTCCalculator 클래스를 불러옵니다. 
 from ttc_calculator import TTCCalculator 
 
 def main():
-    print("🚀 BEEP-BEEP: 모듈화된 기반 알고리즘 테스트를 시작합니다.")
+    print("알고리즘 테스트를 시작합니다.")
     
     model = YOLO('yolov8n.pt')
     
