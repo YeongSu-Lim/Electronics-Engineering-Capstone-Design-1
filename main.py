@@ -50,8 +50,12 @@ def main():
                 current_h = y2 - y1 
                 obj_name = class_names.get(class_id, "Unknown")
 
-                # ttc_calculator 로직 호출
-                ttc, state = ttc_calc.update_and_get_fsm(track_id, current_h, y2)
+                #BBOX가 일정 크기 이상일때만 TTC 알고리즘 가동
+                if current_h < 100:
+                    ttc, state = float('inf'), "SAFE"
+
+                else:
+                    ttc, state = ttc_calc.update_and_get_fsm(track_id, current_h, y2)
 
                 if state == "DANGER":
                     color = (0, 0, 255) 
