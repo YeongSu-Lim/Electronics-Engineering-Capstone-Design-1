@@ -4,21 +4,20 @@ import time
 import config
 
 class Visualizer:
-    """화면 렌더링 및 시각적/물리적 피드백을 담당하는 클래스"""
 
     def __init__(self):
         self.last_danger_time = {}
         self.last_caution_time = {}
 
     def draw_roi_zone(self, canvas):
-        """설정된 ROI 영역과 가이드라인을 화면에 그립니다."""
+
         roi_x1, roi_y1, roi_x2, roi_y2 = config.ROI_BOUNDARY
         cv2.rectangle(canvas, (roi_x1, roi_y1), (roi_x2, roi_y2), config.COLOR_ROI_LINE, 1)
         cv2.putText(canvas, "ROI ZONE", (roi_x1, roi_y1 - 5), 
                     cv2.FONT_HERSHEY_SIMPLEX, 0.4, config.COLOR_ROI_LINE, 1)
 
     def draw_object(self, canvas, box, track_id, final_label, risk_state, ttc_value):
-        """객체의 박스, ID, 라벨 및 위험 상태별 색상을 화면에 표시합니다."""
+
         x1, y1, x2, y2 = box
         
         # 1. 상태별 색상 결정
@@ -44,7 +43,7 @@ class Visualizer:
                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
 
     def _process_alerts(self, track_id, final_label, risk_state, ttc_value):
-        """위험/주의 상태에 맞춰 쿨타임을 계산하고 경고 로그 및 제어 신호를 출력합니다."""
+        
         now = time.time()
 
         if risk_state == "DANGER":

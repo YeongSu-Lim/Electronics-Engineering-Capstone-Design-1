@@ -4,14 +4,20 @@
 # ==========================================================
 
 # --- [파일 및 모델 경로] ---
-VIDEO_PATH        = 'car_test.mp4'        # 분석할 영상 파일
-VEHICLE_MODEL_PT  = 'yolov8n.pt'          # COCO 모델
+#VIDEO_PATH        = 'walk_test.mp4'        # 영상테스트용
+VIDEO_PATH = (
+    "libcamerasrc ! "
+    "video/x-raw, width=1536, height=864, framerate=60/1 ! "
+    "videoconvert ! video/x-raw, format=BGR ! "
+    "appsink drop=true sync=false"
+)
+VEHICLE_MODEL_HEF  = 'yolov8n.hef'        # (.pt 대용) 컴파일된 Hailo 전용 모델 파일 경로
 
 # --- [탐지 대상 및 임계값] ---
 # COCO: 0:사람, 1:자전거, 2:승용차, 3:오토바이, 5:버스, 7:트럭
-VEHICLE_CLASSES   = [0, 1, 2, 3, 5, 7]        # 탐지할 차량 및 보행자 클래스 번호
+VEHICLE_CLASSES   = [0, 1, 2, 3, 5, 7]    # 탐지할 차량 및 보행자 클래스 번호
 VEHICLE_CONF      = 0.25                  # 차량 탐지 최소 확신도
-INFERENCE_SIZE    = 320                   # AI 추론 해상도
+INFERENCE_SIZE    = 640                   # AI 추론 해상도
 
 # --- [TTC 및 위험 판단] ---
 TTC_HISTORY_FRAMES = 5                    # TTC 계산용 프레임 이력
