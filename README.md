@@ -4,58 +4,31 @@
 
 ---
 
-## 📢 업데이트 사항 (26.05.24)
-> 범용적 탐지 정확도를 확보하고 개인형 이동장치의 미탐지 리스크를 최소화하기 위해, yolov8n.pt 단일 모델 체제로 확정했습니다.
----
-
-## 📥 0. 프로젝트 다운로드 방법
-1. 오른쪽 상단의 초록색 **[Code]** 버튼을 클릭합니다.
-2. **[Download ZIP]** 을 클릭하여 파일을 받습니다.
-3. 받은 압축 파일을 풀고, 해당 폴더를 **VS Code**로 엽니다.
+## 📢 업데이트 사항 (26.06.05)
+> bytetracker에서 supervision으로 변경, 그리고 다운로드 오류 방지를 위해 yolov8n.hef를 미리 넣어놨습니다.
 
 ---
 
-## 🛠️ 1. 준비 단계 (환경 구축)
+## 0) 하드웨어 연결 및 확인, 카메라 테스트
 
-### (1) 가상환경(venv) 만들기 및 활성화
-터미널 창(PowerShell)에 아래 명령어를 한 줄씩 입력하세요.
+## 1) 파일 다운로드 (Project_mid) 후 해당 폴더 경로로 터미널 열기
 
-**Step 1. 가상환경 생성**
-```powershell
-python -m venv venv
-```
+## 2) 업데이트
+sudo apt update
+sudo apt install hailo-all
 
-**Step 2. 가상환경 활성화**
-```powershell
-.\venv\Scripts\activate
-```
-*성공하면 줄 맨 앞에 `(venv)`가 표시됩니다.*
+## 3) 가상환경 만들기
+python -m venv venv --system-site-packages
+source venv/bin/activate
+(venv)라는 글자 뜨는지 확인
 
-### (2) 필수 라이브러리 설치
-```bash
-pip install -r requirements.txt
-```
+## 4) 라이브러리 설치
+pip install numpy supervision opencv-python
+pip install /usr/lib/python3/dist-packages/hailo_platform-*.whl
 
----
-
-## 🎬 2. 실행 방법
-
-### (1) 필수 파일 확인
-- **테스트 영상**: 분석할 영상을 프로젝트 폴더에 넣어주세요. (기본 설정명: `test.mp4`)
-  - 파일명이 다를 경우 `config.py`의 `VIDEO_PATH`를 수정해 주세요.
-- **AI 모델**: `yolov8n.pt` (처음 실행 시 자동 다운로드)
-
-### (2) 코드 실행
-```bash
+## 5) 실행확인 (종료; q키)
 python main.py
-```
 
----
-
-## 📂 3. 폴더 구조 및 역할
-
-- `main.py`: 전체 시스템을 제어하고 위험도를 판단하는 메인 로직
-- `config.py`: 모든 상수와 환경 설정을 한데 모은 설정 파일
-- `core_detector.py`: YOLOv8 모델 로드 및 객체 추적(Tracking) 수행
-- `ttc_calculator.py`: 실시간 크기 변화를 분석하여 TTC 산출
-- `visualizer.py`: 화면 상의 박스 렌더링 및 위험 알림 로그 출력
+ 
+* 주의사항: 오류방지를 위해 기존에 실패했던 폴더를 다시 쓰지 말고, 새 파일에서 새 가상환경 세팅 후 진행해주세요
+* 오류시에 어떤 부분을 진행 중에 어떤 오류가 떴는지 상세하게 알려주세요
