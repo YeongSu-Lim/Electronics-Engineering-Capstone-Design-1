@@ -1,0 +1,6 @@
+# .gitignore 파일 내용
+venv/
+*.mp4
+*.pt
+__pycache__/
+.vscode/

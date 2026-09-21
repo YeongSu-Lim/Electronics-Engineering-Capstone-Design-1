@@ -12,8 +12,7 @@ def initialize_models():
     try:
         # config.py에 정의된 상수 경로를 사용하여 모델 로드
         vehicle_model = YOLO(config.VEHICLE_MODEL_PT).fuse()
-        scooter_model = YOLO(config.SCOOTER_MODEL_PT).fuse()
-        return vehicle_model, scooter_model
+        return vehicle_model
     except Exception as e:
         print(f"[!] 모델 로드 실패: {e}")
         sys.exit(1)
@@ -23,7 +22,7 @@ class DetectionEngine:
     
     def __init__(self):
         # 초기화 시 모델을 로드하여 인스턴스 변수에 저장
-        self.vehicle_model, self.scooter_model = initialize_models()
+        self.vehicle_model = initialize_models()
 
     def get_vehicle_results(self, frame):
         """차량 탐지 모델의 추적 결과를 반환합니다."""
@@ -34,17 +33,6 @@ class DetectionEngine:
             imgsz=config.INFERENCE_SIZE, 
             persist=True, 
             tracker="bytetrack.yaml", 
-            verbose=False
-        )
-
-    def get_scooter_results(self, frame):
-        """킥보드 탐지 모델의 추적 결과를 반환합니다."""
-        return self.scooter_model.track(
-            frame, 
-            classes=config.SCOOTER_CLASSES, 
-            conf=config.SCOOTER_CONF, 
-            imgsz=config.INFERENCE_SIZE, 
-            persist=True, 
             verbose=False
         )
 
