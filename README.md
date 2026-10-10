@@ -21,9 +21,9 @@
 | 개선 | 대표 크기 산출 기준과 시간적 판단 로직을 개선하고 반복 야외 시험 수행 |
 | 결과 | 기존 개선 버전의 자체 야외 시험에서 약 85%까지 회복 |
 
-현재 코드에서는 `sqrt(width × height)` 기반 TTC, 유효값 이동평균과 위험 조건 3회 누적을 확인할 수 있습니다. 시험 당시 코드와 현재 구현의 정확한 대응, 필터별 기여도는 [알고리즘 문서](docs/algorithm.md)에서 구분합니다.
+기존 루트 코드에서는 `sqrt(width × height)` 기반 TTC, 유효값 이동평균과 위험 조건 3회 누적을 확인할 수 있습니다. 시험 당시 코드와 현재 구현의 정확한 대응, 필터별 기여도는 [알고리즘 문서](docs/algorithm.md)에서 구분합니다.
 
-## 현재 저장소의 처리 흐름
+## 기존 루트 실행 코드의 처리 흐름
 
 ```mermaid
 flowchart TD
@@ -36,7 +36,9 @@ flowchart TD
     TTC --> VIEW["상태별 박스 · 객체별 콘솔 경고"]
 ```
 
-현재 main은 객체별 화면 표시·콘솔 경고까지 포함합니다. **주요 대상 선정·단일 경보·영상/CSV 기록·BLE용 공유 파일은 별도 후속 자료에 있으며 현재 main에는 없습니다.** [버전별 구현 범위](docs/versions.md)
+기존 루트 [main.py](main.py)는 객체별 화면 표시·콘솔 경고를 수행하며 변경하지 않았습니다. **10월 6일 후속 코드는 [PR #2](https://github.com/YeongSu-Lim/Electronics-Engineering-Capstone-Design-1/pull/2) 병합으로 main의 [candidates/20261006/](candidates/20261006/README.md)에 추가됐습니다.** 주요 대상 선정·단일 경보·MP4/CSV 기록·BLE용 공유 파일 기능을 포함하지만 기존 실행 코드를 대체하지 않습니다.
+
+후보 코드의 **모의 테스트 34개 통과**와 **하드웨어 담당자의 실제 장비 무오류 실행 확인을 전달받은 사실**을 구분해 기록했습니다. 기능별 실장치 검증과 최신 버전 정확도 측정은 별도로 필요합니다. [버전 구분](docs/versions.md) · [후속 코드 검증 기록](docs/followup-20261010.md)
 
 ## 기여와 학술 성과
 
@@ -50,9 +52,9 @@ flowchart TD
 | --- | --- |
 | [아키텍처](docs/architecture.md) | 모듈 경계·입출력·자원 제약 |
 | [알고리즘과 문제 해결](docs/algorithm.md) | TTC 식·위험 판정·개선 근거 |
-| [버전별 구현 범위](docs/versions.md) | 과거 시험·현재 main·후속 자료 구분 |
+| [버전별 구현 범위](docs/versions.md) | 과거 시험·기존 루트 코드·main 내 격리 후보 구분 |
 | [검증 결과와 계획](docs/validation.md) | 수치 출처·합성 입력 확인·미실시 장치 시험 |
 | [실행 환경](docs/setup.md) | 장치·의존성 조건과 실행 절차 |
 | [수정·검증 계획](docs/remediation.md) | 미해결 기술 문제의 우선순위·통과 기준 |
 
-시작 파일: [main.py](main.py). 문서 기준 main: [`700442e`](https://github.com/YeongSu-Lim/Electronics-Engineering-Capstone-Design-1/tree/700442e98df8d272e1125d509d7a5ed0b8055098). SAFE는 코드상 경보 조건 미충족이며 실제 안전의 확정을 뜻하지 않습니다.
+시작 파일: [main.py](main.py). 기존 루트 코드 분석 기준: [`700442e`](https://github.com/YeongSu-Lim/Electronics-Engineering-Capstone-Design-1/tree/700442e98df8d272e1125d509d7a5ed0b8055098). SAFE는 코드상 경보 조건 미충족이며 실제 안전의 확정을 뜻하지 않습니다.
